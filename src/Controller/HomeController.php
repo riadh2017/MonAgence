@@ -14,4 +14,15 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig');
     }
+
+
+    /**
+     * @Route("/Acheter", name="property.index")
+     */
+    public function indexProperty(){
+
+        return $this->render("property/index.html.twig",[
+            'current_menu' => "property"
+        ]);
+    }
 }
