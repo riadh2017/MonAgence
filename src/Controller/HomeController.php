@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Property;
+use App\Repository\PropertyRepository;
+use  App\Repository\RepositoryProperty;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -12,6 +15,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+ 
         return $this->render('home/index.html.twig');
     }
 
@@ -19,7 +23,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/Acheter", name="property.index")
      */
-    public function indexProperty(){
+    public function indexProperty(PropertyRepository $repo){
+
 
         return $this->render("property/index.html.twig",[
             'current_menu' => "property"
