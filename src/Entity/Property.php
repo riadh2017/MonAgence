@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
+ * @ORM\Entity
+ * @UniqueEntity("title")
  * @ORM\Entity(repositoryClass="App\Repository\PropertyRepository")
  */
 class Property
@@ -29,6 +34,12 @@ function __construct(){
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "Il faut que la taille de titre soit superieur a 10 characters",
+     *      maxMessage = "Il faut pas que la taille de titre dépasse 255 characters"
+     * )
      */
     private $title;
 
@@ -39,16 +50,21 @@ function __construct(){
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThan(10)
      */
+    
     private $surface;
 
     /**
      * @ORM\Column(type="integer")
+     *  @Assert\GreaterThanOrEqual(0)
      */
     private $rooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(0)
+     * 
      */
     private $bedrooms;
 
@@ -69,6 +85,11 @@ function __construct(){
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your ville cannot contain a number"
+     * )
      */
     private $city;
 
@@ -79,6 +100,16 @@ function __construct(){
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      minMessage = "besoin de 5 chiffre"
+     * )
+     * @Assert\Regex(
+     *     pattern ="/^[a-zA-Z]{5}$/",
+     *     match=false,
+     *     message ="Your postal code cannot contain a caracter"
+     * )
      */
     private $postal_code;
 
